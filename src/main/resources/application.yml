@@ -13,6 +13,14 @@ zuul:  routes:    productos:
     items:
       service-id: servicio-items
       path: /api/items/**
+    usuarios:
+      service-id: servicio-usuarios
+      path: /api/usuarios/**
+    security:
+      service-id: servicio-oauth
+      path: /api/security/**
+      sensitive-headers: Cookie,Set-Cookie
+     
 #hystrix:
 #  command:
 #    default:
