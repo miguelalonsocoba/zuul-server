@@ -21,13 +21,13 @@ zuul:  routes:    productos:
       path: /api/security/**
       sensitive-headers: Cookie,Set-Cookie
      
-#hystrix:
-#  command:
-#    default:
-#       execution:
-#        isolation:
-#          thread:
-#            timeoutInMilliseconds: 20000
-#ribbon:
-#  ConnectTimeout: 3000
-#  ReadTimeout: 10000
+hystrix:
+  command:
+    default:
+       execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 20000
+ribbon:
+  ConnectTimeout: 3000
+  ReadTimeout: 10000
