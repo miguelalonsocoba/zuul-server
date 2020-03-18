@@ -1,5 +1,7 @@
 package com.formacionbdi.springboot.app.zuul.oauth;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -14,9 +16,13 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
  * Se crea la configuración del servidor de recursos. Se encarga de proteger y
  * dar acceso a los microservicios.
  */
+@RefreshScope
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
+	
+	@Value("${config.security.oauth.jwt.key}")
+	private String jwtKey;
 
 	@Override
 	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
@@ -54,7 +60,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	@Bean
 	public JwtAccessTokenConverter accessTokenConverter() {
 		JwtAccessTokenConverter tokenConverter = new JwtAccessTokenConverter();
-		tokenConverter.setSigningKey("algun_codigo_secreto_aeiou");
+		tokenConverter.setSigningKey(jwtKey);
 		return tokenConverter;
 	}
 
